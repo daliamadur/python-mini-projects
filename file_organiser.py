@@ -1,4 +1,4 @@
-import shutil, argparse, time, os
+import shutil, argparse, time
 from pathlib import Path
 from rich.progress import Progress
 from rich.console import Console
@@ -71,14 +71,17 @@ def get_path():
     args = parser.parse_args()
 
     #get cli argument input by the user
-    if args:
-        path_from_arg = args.path if args.path else args.path_string
-        group_sorted_from_arg = args.group_sorted
-        group_folders_from_arg = args.group_folders
-    #prompt if no cli args
-    path = path_from_arg if path_from_arg else input("Paste the path for the directory to organise: 📂 ").strip(" \" \'")
-    group_sorted = group_sorted_from_arg == 'y' if group_sorted_from_arg else iq.confirm("Would you like to group sorted files together in one parent folder?").execute()
-    group_folders = group_folders_from_arg == 'y' if group_folders_from_arg else iq.confirm("Would you like to group pre-existing folders together in one parent folder?").execute()
+    try:
+        if args:
+            path_from_arg = args.path if args.path else args.path_string
+            group_sorted_from_arg = args.group_sorted
+            group_folders_from_arg = args.group_folders
+        #prompt if no cli args
+        path = path_from_arg if path_from_arg else input("Paste the path for the directory to organise: 📂 ").strip(" \" \'")
+        group_sorted = group_sorted_from_arg == 'y' if group_sorted_from_arg else iq.confirm("Would you like to group sorted files together in one parent folder?").execute()
+        group_folders = group_folders_from_arg == 'y' if group_folders_from_arg else iq.confirm("Would you like to group pre-existing folders together in one parent folder?").execute()
+    except Exception as e:
+        print(f"Error with opening directory: {e}")
     
     #return path, group_sorted, group_folders flags
     return path, group_sorted, group_folders
