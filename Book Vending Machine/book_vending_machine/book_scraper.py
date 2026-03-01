@@ -1,5 +1,6 @@
 import requests, re
 from bs4 import BeautifulSoup
+from .models import Book
 
 class BookScraper():
     def __init__(self):
@@ -66,8 +67,6 @@ class BookScraper():
 
         in_stock_data = info_table_data[5]
         in_stock = bool(re.search("In stock", str(in_stock_data)))
-
-        print(title, description, category, rating, cleaned_price, in_stock, sep="\n")
 
         return {
             "title": title,
