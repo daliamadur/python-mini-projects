@@ -1,6 +1,6 @@
 import shutil, argparse, time
 from pathlib import Path
-from rich.progress import Progress
+from rich.progress import Progress, TaskID
 from rich.console import Console
 from InquirerPy import inquirer as iq
 
@@ -25,7 +25,7 @@ ALL_FOLDERS = list(TYPES.keys()) + [SORTED_FILES, SORTED_FOLDERS, MISC_FOLDER]
 class FileSortError(Exception):
     pass
 
-def files_to_move(path, group_folders):
+def files_to_move(path: str, group_folders: bool):
     num = 0
     directory = Path(path)
 
@@ -37,7 +37,7 @@ def files_to_move(path, group_folders):
 
     return num
 
-def ignore(file, extension):
+def ignore(file: str , extension: str):
     IGNORED_FILES = {
         "desktop.ini",
         "Thumbs.db",
@@ -86,7 +86,7 @@ def get_path():
     #return path, group_sorted, group_folders flags
     return path, group_sorted, group_folders
 
-def create_dirs(path, group_sorted, group_folders):
+def create_dirs(path: str, group_sorted: bool, group_folders: bool):
     base_path = Path(path)
     folders = list(TYPES.keys()) + [MISC_FOLDER]
 
@@ -108,7 +108,7 @@ def create_dirs(path, group_sorted, group_folders):
 
     return files_path, folders_path
 
-def sort_files(base, files_path, folders_path, progress, task_id):
+def sort_files(base:str , files_path: Path, folders_path: Path | None, progress: Progress, task_id: TaskID):
     #get all files in directory
     base_path = Path(base)
 
@@ -166,7 +166,7 @@ def sort_files(base, files_path, folders_path, progress, task_id):
         except Exception as e:
             raise FileSortError(file) from e
                     
-def delete_folders(path):
+def delete_folders(path: str):
     base_path = Path(path)
 
     for folder in base_path.iterdir():
