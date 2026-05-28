@@ -1,5 +1,5 @@
 # Python Proficiency
-*💾 A collection of python mini projects to practice implementing programming concepts and improve proficiency in the python programming language*
+> A collection of python mini projects to practice implementing programming concepts and improve proficiency in the python programming language
 
 ## 🗃️ Projects
 - 📁 [`File Organiser`](#-file-organiser)
@@ -8,6 +8,8 @@
 
 ### 📁 File Organiser
 📄 [`file_organiser.py`](./file_organiser.py)
+
+![file organiser command line interface running in the terminal](<media/file organiser demo.gif>)
 #### Documentation
 | Method | Description | Parameters | Returns |
 |---|---|---|---|
@@ -20,12 +22,20 @@
 
 
 #### Usage
+With command line flags
+```shell
+py file_organiser.py -p "C:\Users\user\Desktop\messy folder" --group-sorted y --group-folders n
 ```
-terminal stuff using command line args
+Using CLI
 ```
+py file_organiser.py
+
+Paste the path for the directory to organise: 📂 C:\messy folder
+? Would you like to group sorted files together in one parent folder? Yes
+? Would you like to group pre-existing folders together in one parent folder? No
 ```
-terminal stuff using CLI
-```
+
+If not all command line flags are used, the CLI will prompt you for the missing parameters :)
 
 ### 📁 Text Analyser
 📄 [`mini_text_analyser.py`](./mini_text_analyser.py)
