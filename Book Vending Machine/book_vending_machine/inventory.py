@@ -2,6 +2,8 @@ from rich.table import Table
 from rich.markdown import Markdown
 from rich.console import Console
 from .models import Book
+from InquirerPy import inquirer as q
+import random
 
 class Inventory():
     def __init__(self, inventory: list[Book]):
@@ -46,6 +48,20 @@ class Inventory():
     def print_stock_and_details(self, console: Console):
         console.print(self._heading())
         console.print(self._get_stock())
-        for book in self.inventory:
-            for detail, md in self._get_book_details(book):
-                console.print(Markdown(detail) if md else detail)
+        print_details = q.confirm("Would you like more stock details?").execute()
+        
+        last = None
+        while print_details:
+            book_list_menu = [{"value": book, "name": book.title} for book in self.inventory]
+            book_list_menu.append({"value": None, "name": "Exit"})
+                
+            book = q.select(message= "Choose a book to view details", choices=book_list_menu, qmark="📚", amark=random.choice(["📕","📗","📘","📙"]), default=last if last else book_list_menu[0]).execute()
+
+            if book is None:
+                exit()
+            else:
+                for detail in self._get_book_details(book):
+                    detail, md = detail
+                    console.print(Markdown(detail) if md else detail)
+                print()
+                last = book

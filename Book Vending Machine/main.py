@@ -11,8 +11,12 @@ try:
     scraper = BookScraper()
 
     with console.status("Loading stock info and building inventory", spinner="aesthetic") as status:
-        pass
-        all_books: list[Book] = scraper.get_all_books()
+        try:
+            all_books: list[Book] = scraper.get_all_books()
+        except:
+            print("Unable to retreive book info :(")
+            print("Please check your connection")
+            exit()
         
         #grab 5 example books and print    
         example_inventory: list[Book] = random.sample(all_books, 5)

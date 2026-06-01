@@ -1,4 +1,4 @@
-import argparse, nltk, math, json
+import argparse, nltk, math, json, time
 from string import punctuation
 from pprint import pprint
 from nltk.corpus import stopwords
@@ -7,7 +7,7 @@ from pathlib import Path
 
 def get_txt_path():
     #for parsing command-line arguments
-    parser = argparse.ArgumentParser(description="Organise all files in a directory based on their type")
+    parser = argparse.ArgumentParser(description="Analyses an input txt file and generates an optional analysis report")
 
     #string path as argument (optional)
     parser.add_argument("path_string", nargs="?", help="(string) full path to txt file to analyse")
@@ -117,7 +117,9 @@ def main():
         print(line)
 
     print()
+    time.sleep(1)
     print("Individual word count:")
+    time.sleep(0.5)
     pprint(word_count, indent=2)
 
     create_report = iq.confirm("Generate analysis report?").execute()
